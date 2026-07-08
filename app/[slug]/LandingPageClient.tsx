@@ -568,6 +568,11 @@ export default function LandingPageClient({
 
   return (
     <div className="min-h-screen bg-white pb-16 lg:pb-0" style={{ fontFamily: 'var(--font-dm), sans-serif', color: DARK }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      ` }} />
 
       {/* ── TOPBAR ── */}
       <div className="px-5 lg:px-10 py-3 flex items-center justify-between"
@@ -595,7 +600,7 @@ export default function LandingPageClient({
       <div className="flex gap-5 items-start max-w-7xl mx-auto px-4 lg:px-6 py-6">
 
         {/* ══ LEFT COLUMN ══ */}
-        <div className="flex-1 min-w-0 flex flex-col gap-4">
+        <div className="w-full lg:w-[70%] min-w-0 flex flex-col gap-4">
 
           {/* Hero image */}
           {product.hero_image ? (
@@ -722,8 +727,14 @@ export default function LandingPageClient({
         </div>
 
         {/* ══ RIGHT COLUMN — sticky checkout ══ */}
-        <div className="hidden lg:block flex-shrink-0 sticky top-0 self-start"
-          style={{ width: 340, maxHeight: '100vh', overflowY: 'auto', background: '#fff' }}>
+        <div className="hidden lg:block lg:w-[30%] flex-shrink-0 sticky top-0 self-start no-scrollbar"
+          style={{
+            maxHeight: '100vh',
+            overflowY: 'auto',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            background: '#fff'
+          }}>
           <div className="p-5">
             <CheckoutSidebar product={product} />
             {/* Trust list */}
