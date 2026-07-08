@@ -726,13 +726,74 @@ export default function LandingPageClient({
 
   const total = product.price + (upsellAdded ? UPSELL_PRICE : 0)
 
-  const title = lang === 'ar' && product.title_ar ? product.title_ar : product.title
-  const subtitle = lang === 'ar' && product.subtitle_ar ? product.subtitle_ar : product.subtitle
-  const description = lang === 'ar' && product.description_ar ? product.description_ar : product.description
-  const features = lang === 'ar' && product.features_ar && product.features_ar.length > 0 ? product.features_ar : product.features
-  const testimonials = lang === 'ar' && product.testimonials_ar && product.testimonials_ar.length > 0 ? product.testimonials_ar : product.testimonials
-  const faqs = lang === 'ar' && product.faqs_ar && product.faqs_ar.length > 0 ? product.faqs_ar : product.faqs
-  const sections = lang === 'ar' && product.sections_ar && product.sections_ar.length > 0 ? product.sections_ar : product.sections
+  const isYoutubeAutomation = slug === 'youtube-automation' || product.slug === 'youtube-automation'
+
+  const title = lang === 'ar'
+    ? (product.title_ar || (isYoutubeAutomation ? 'باقة فيديوهات الكارتون الطويلة +2000' : product.title))
+    : product.title
+
+  const subtitle = lang === 'ar'
+    ? (product.subtitle_ar || (isYoutubeAutomation ? 'أقوى باقة لصناعة محتوى اليوتيوب ومواقع التواصل الاجتماعي بدون ظهور' : product.subtitle))
+    : product.subtitle
+
+  const description = lang === 'ar'
+    ? (product.description_ar || (isYoutubeAutomation ? 'ابدأ القناة متاعك على يوتيوب ولا الإمبراطورية متاعك على السوشيال ميديا من اليوم! الباقة العملاقة هذه فيها أكثر من 2000 فيديو كارتون بجودة عالية، مخدومة خصيصاً باش تنجح في يوتيوب والسوشيال ميديا.\n\nالفيديوهات هذه تغطي قصص وعبر، محتوى تعليمي، وحكايات للأطفال مشوقة وسهلة التحميل.\n\nشنية يخلي الباقة هذه مميزة؟\n- جاهزة للرفع مباشرة: ما تستحقش خبرة في المونتاج. حمل الفيديوهات وحطها طول.\n- إمكانية تحقيق أرباح عالية: فيديوهات يوتيوب كارتون تجيب ملاين المشاهدات.\n- بدون حقوق ملكية: تنجم تستعملهم وتفعل بيهم الربح 100% بدون أي مشاكل.\n- وصول مدى الحياة: تحميل فوري من جوجل درايف للروابط المنظمة.' : product.description))
+    : product.description
+
+  const defaultArFeatures = [
+    'أكثر من 2000 فيديو كارتون بجودة عالية',
+    'فيديوهات طويلة وقصيرة (شورتس)',
+    'تعليق صوتي بالإنقليزية موجه لأمريكا والعالم',
+    'تحميل فوري ومنظم من جوجل درايف',
+    'مضمونة لتفعيل الربح وبدون حقوق ملكية 100%',
+    'هدية: باقة المؤثرات الصوتية والموسيقى الخلفية'
+  ]
+  const features = lang === 'ar'
+    ? (product.features_ar && product.features_ar.length > 0 ? product.features_ar : (isYoutubeAutomation ? defaultArFeatures : product.features))
+    : product.features
+
+  const defaultArTestimonials = [
+    { name: 'Sarah M', text: 'الخدمة والأنيميشن طيارة علخر، وفولدرات جوجل درايف منظمة برشة وساهل تحمل منها. ننصح بيه أي صانع محتوى.', rating: 5, avatar: null },
+    { name: 'Yassine B', text: 'الباقة هذه ربحتني شهور خدمة ومونتاج. بدّيت باها زوز قنوات يوتيوب وبداو يجيبو في آلاف المشاهدات.', rating: 5, avatar: null },
+    { name: 'Ahmed K', text: 'قيمة ممتازة مقارنة بالسعر. القصص معبرة وممتازة علخر للفيديوهات القصيرة (Shorts) والطويلة.', rating: 5, avatar: null }
+  ]
+  const testimonials = lang === 'ar'
+    ? (product.testimonials_ar && product.testimonials_ar.length > 0 ? product.testimonials_ar : (isYoutubeAutomation ? defaultArTestimonials : product.testimonials))
+    : product.testimonials
+
+  const defaultArFaqs = [
+    { question: 'هل الفيديوهات هذه مضمونة ضد حقوق الملكية؟', answer: 'إي، الفيديوهات خالية تماماً من حقوق الملكية وتقدر تفعل باها الربح 100%.' },
+    { question: 'كيفاش باش نستلم الباقة؟', answer: 'مباشرة بعد الدفع، يوصلك إيميل فيه رابط التحميل الفوري من جوجل درايف.' },
+    { question: 'هل لازمني برنامج مونتاج ولا تحريك؟', answer: 'لا، الفيديوهات حاضرة وجاهزة للرفع مباشرة بدون أي تعديل.' }
+  ]
+  const faqs = lang === 'ar'
+    ? (product.faqs_ar && product.faqs_ar.length > 0 ? product.faqs_ar : (isYoutubeAutomation ? defaultArFaqs : product.faqs))
+    : product.faqs
+
+  const defaultArSections: ProductSection[] = [
+    {
+      type: "text",
+      title: "صناعة المحتوى الآلي على اليوتيوب بدون ظهور",
+      content: "الربح من اليوتيوب بدون ظهور هو واحد من أنجح المشاريع الرقمية اليوم. لكن أكبر مشكلة تواجه صناع المحتوى هي تحضير وتعديل الفيديوهات. مع الباقة هذه، تتحصل مباشرة على أكثر من 2000 فيديو كارتون بجودة عالية وتفاعل كبير، مصممة خصيصاً باش تساعدك تفعل الربح على قناتك في وقت قياسي."
+    },
+    {
+      type: "youtube",
+      title: "معاينة الفيديوهات ونماذج من الباقة",
+      videos: [
+        {
+          url: "https://youtu.be/gvPCGUWHztM?si=4AcfpjGH-tCIQQC1",
+          caption: "نموذج 1 - معاينة الرسوم المتحركة الكارتونية"
+        },
+        {
+          url: "https://youtu.be/y0u99UREVMo?si=g0T8u8WooQtjlCoO",
+          caption: "نموذج 2 - حكاية أطفال مشوقة"
+        }
+      ]
+    }
+  ]
+  const sections = lang === 'ar'
+    ? (product.sections_ar && product.sections_ar.length > 0 ? product.sections_ar : (isYoutubeAutomation ? defaultArSections : product.sections))
+    : product.sections
 
   return (
     <div className="min-h-screen bg-white pb-16 lg:pb-0" dir={lang === 'ar' ? 'rtl' : 'ltr'} style={{ fontFamily: 'var(--font-dm), sans-serif', color: DARK }}>
