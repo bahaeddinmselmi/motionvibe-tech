@@ -91,8 +91,8 @@ function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
       style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(6px)' }}>
-      <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl"
-        style={{ maxHeight: '92vh', overflowY: 'auto' }}>
+      <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl no-scrollbar"
+        style={{ maxHeight: '92vh', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
         {/* Badge */}
         <div className="text-center pt-5 pb-2 px-5">
