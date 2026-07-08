@@ -910,37 +910,7 @@ export default function LandingPageClient({
           {/* Dynamic sections */}
           {sections.map((sec, i) => <SectionRenderer key={i} section={sec} />)}
 
-          {/* Testimonials */}
-          {testimonials.length > 0 && (
-            <Sec>
-              <H2>{t('whatCustomersSay')}</H2>
-              <div className="mt-5 grid sm:grid-cols-2 gap-4">
-                {testimonials.map((testi, idx) => (
-                  <div key={idx} className="p-5" style={{ border: `1px solid ${BDR}`, background: SAND }}>
-                    <div className="flex gap-0.5 mb-3">
-                      {[...Array(testi.rating)].map((_, j) => (
-                        <Star key={j} className="w-4 h-4 fill-current" style={{ color: '#F59E0B' }} />
-                      ))}
-                    </div>
-                    <p className="text-base leading-relaxed mb-4 italic" style={{ color: MID }}>
-                      &ldquo;{testi.text}&rdquo;
-                    </p>
-                    <div className="flex items-center gap-2.5">
-                      {testi.avatar
-                        ? <img src={getAssetUrl(testi.avatar)} alt={testi.name} className="w-8 h-8 object-cover" style={{ border: `1px solid ${BDR}` }} />
-                        : <div className="w-8 h-8 flex items-center justify-center text-xs font-black text-white"
-                            style={{ background: OR }}>{testi.name[0]}</div>
-                      }
-                      <div>
-                        <div className="text-sm font-bold" style={{ color: DARK }}>{testi.name}</div>
-                        <div className="text-[11px]" style={{ color: LITE }}>{lang === 'ar' ? 'حريف مؤكد' : 'Verified customer'}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Sec>
-          )}
+
 
           {/* FAQ */}
           {faqs.length > 0 && (
