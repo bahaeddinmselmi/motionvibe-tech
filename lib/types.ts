@@ -22,6 +22,7 @@ export interface Product {
   faqs_ar?: { question: string; answer: string }[]
   upsell_slugs: string[]
   sections: ProductSection[]
+  sections_ar?: ProductSection[]
   created_at: string
 }
 

@@ -732,6 +732,7 @@ export default function LandingPageClient({
   const features = lang === 'ar' && product.features_ar && product.features_ar.length > 0 ? product.features_ar : product.features
   const testimonials = lang === 'ar' && product.testimonials_ar && product.testimonials_ar.length > 0 ? product.testimonials_ar : product.testimonials
   const faqs = lang === 'ar' && product.faqs_ar && product.faqs_ar.length > 0 ? product.faqs_ar : product.faqs
+  const sections = lang === 'ar' && product.sections_ar && product.sections_ar.length > 0 ? product.sections_ar : product.sections
 
   return (
     <div className="min-h-screen bg-white pb-16 lg:pb-0" dir={lang === 'ar' ? 'rtl' : 'ltr'} style={{ fontFamily: 'var(--font-dm), sans-serif', color: DARK }}>
@@ -745,12 +746,22 @@ export default function LandingPageClient({
       <div className="px-5 lg:px-10 py-3 flex items-center justify-between"
         style={{ borderBottom: `1px solid ${BDR}`, background: SAND }}>
         <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: LITE }}>{t('title')}</span>
-        {discount > 0 && (
-          <span className="text-xs font-black uppercase tracking-wider px-3 py-1 text-white"
-            style={{ background: OR }}>
-            {discount}% {t('limitedOffer')}
-          </span>
-        )}
+        <div className="flex items-center gap-4">
+          {discount > 0 && (
+            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 text-white"
+              style={{ background: OR }}>
+              {discount}% {t('limitedOffer')}
+            </span>
+          )}
+          <button
+            type="button"
+            onClick={() => handleSelectLang(lang === 'ar' ? 'en' : 'ar')}
+            className="text-xs font-bold px-3 py-1.5 rounded-lg border border-[#E0DDD8] bg-white hover:border-[#E05C00] transition"
+            style={{ color: DARK }}
+          >
+            {lang === 'ar' ? '🇬🇧 English' : '🇹🇳 عربي'}
+          </button>
+        </div>
       </div>
 
       {/* ── TITLE BAR ── */}
@@ -836,7 +847,7 @@ export default function LandingPageClient({
           )}
 
           {/* Dynamic sections */}
-          {product.sections.map((sec, i) => <SectionRenderer key={i} section={sec} />)}
+          {sections.map((sec, i) => <SectionRenderer key={i} section={sec} />)}
 
           {/* Testimonials */}
           {testimonials.length > 0 && (
