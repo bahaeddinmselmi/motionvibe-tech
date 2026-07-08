@@ -297,7 +297,6 @@ function CheckoutSidebar({
   setUpsellAdded: (val: boolean) => void
 }) {
   const [form, setForm] = useState({ first_name: '', last_name: '', email: '', phone: '' })
-  const [wantThis, setWantThis] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [flounciUrl, setFlounciUrl] = useState<string | null>(null)
@@ -308,10 +307,6 @@ function CheckoutSidebar({
   async function submit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-    if (!wantThis) {
-      setError(lang === 'ar' ? 'يرجى تأكيد رغبتك في شراء المنتج.' : 'Please confirm you want this product.')
-      return
-    }
     if (!form.first_name || !form.last_name || !form.email || !form.phone) {
       setError(lang === 'ar' ? 'جميع الحقول مطلوبة.' : 'All fields are required.')
       return
@@ -464,23 +459,24 @@ function CheckoutSidebar({
 
       {/* "Yes, I Want This!" checkbox */}
       <div className="px-5 pb-4">
-        <label
-          className="flex items-start gap-3 cursor-pointer group"
-          onClick={() => setWantThis(v => !v)}
+        <button
+          type="button"
+          className="flex items-start gap-3 cursor-pointer group text-left w-full"
+          onClick={() => setUpsellAdded(!upsellAdded)}
         >
           <div
             className="flex-shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all"
             style={{
-              borderColor: wantThis ? OR : BDR,
-              background: wantThis ? OR : '#fff',
+              borderColor: upsellAdded ? OR : BDR,
+              background: upsellAdded ? OR : '#fff',
             }}
           >
-            {wantThis && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+            {upsellAdded && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
           </div>
-          <span className="text-sm font-semibold leading-tight" style={{ color: wantThis ? OR : MID }}>
+          <span className="text-sm font-semibold leading-tight select-none" style={{ color: upsellAdded ? OR : MID }}>
             {t('yesWantThis')}
           </span>
-        </label>
+        </button>
       </div>
 
       {/* CTA */}
