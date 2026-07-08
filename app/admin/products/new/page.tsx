@@ -233,10 +233,14 @@ export default function NewProduct() {
     title: '', slug: '', subtitle: '', description: '', superprofile_url: '',
     price: '', original_price: '',
     ba9chich_product_id: '', hero_image: '',
+    title_ar: '', subtitle_ar: '', description_ar: '',
   })
   const [features, setFeatures] = useState<string[]>([])
+  const [features_ar, setFeatures_ar] = useState<string[]>([])
   const [faqs, setFaqs] = useState<{ question: string; answer: string }[]>([])
+  const [faqs_ar, setFaqs_ar] = useState<{ question: string; answer: string }[]>([])
   const [faqDraft, setFaqDraft] = useState({ question: '', answer: '' })
+  const [faqDraft_ar, setFaqDraft_ar] = useState({ question: '', answer: '' })
   const [sections, setSections] = useState<ProductSection[]>([])
   const [previewImages, setPreviewImages] = useState<{ url: string; caption?: string }[]>([])
   const [addingType, setAddingType] = useState('')
@@ -290,6 +294,11 @@ export default function NewProduct() {
       hero_image: form.hero_image || null,
       features, faqs, sections,
       preview_images: previewImages, testimonials: [], upsell_slugs: [], is_active: false,
+      title_ar: form.title_ar || null,
+      subtitle_ar: form.subtitle_ar || null,
+      description_ar: form.description_ar || null,
+      features_ar: features_ar,
+      faqs_ar: faqs_ar,
     })
     if (err) { setError(err.message); setSaving(false); return }
     router.push('/admin/products')
@@ -364,6 +373,61 @@ export default function NewProduct() {
           <div>
             <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Hero image URL</label>
             <input className={inp} placeholder="https://..." {...f('hero_image')} />
+          </div>
+        </Card>
+
+        {/* Tunisian Arabic Translation */}
+        <Card title="Tunisian Arabic Translation (تونسي عربي)">
+          <div>
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Product title (Arabic)</label>
+            <input className={inp} placeholder="e.g. أكبر باقة لتعديل الفيديو"
+              value={form.title_ar}
+              onChange={e => setForm(p => ({ ...p, title_ar: e.target.value }))} />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Subtitle (Arabic)</label>
+            <input className={inp} placeholder="One-liner in Arabic"
+              value={form.subtitle_ar}
+              onChange={e => setForm(p => ({ ...p, subtitle_ar: e.target.value }))} />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Description (Arabic)</label>
+            <textarea rows={6} className={`${inp} resize-none`}
+              placeholder="Write the full product description in Arabic..."
+              value={form.description_ar}
+              onChange={e => setForm(p => ({ ...p, description_ar: e.target.value }))} />
+          </div>
+          <div className="pt-2">
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Features (Arabic)</label>
+            <TagInput label="" items={features_ar} onChange={setFeatures_ar} />
+          </div>
+          <div className="pt-2 border-t border-[#E0DDD8] mt-4">
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Arabic FAQs</label>
+            {faqs_ar.map((fq, i) => (
+              <div key={i} className="flex gap-3 bg-[#F5F2EC] rounded-xl p-3 mb-2">
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium text-[#111] truncate">{fq.question}</div>
+                  <div className="text-xs text-[#888] mt-0.5 line-clamp-2">{fq.answer}</div>
+                </div>
+                <button type="button" onClick={() => setFaqs_ar(fs => fs.filter((_, j) => j !== i))}>
+                  <X className="w-4 h-4 text-[#BBB] hover:text-red-500" />
+                </button>
+              </div>
+            ))}
+            <div className="space-y-2">
+              <input className={inp} placeholder="Arabic Question" value={faqDraft_ar.question}
+                onChange={e => setFaqDraft_ar(p => ({ ...p, question: e.target.value }))} />
+              <input className={inp} placeholder="Arabic Answer" value={faqDraft_ar.answer}
+                onChange={e => setFaqDraft_ar(p => ({ ...p, answer: e.target.value }))} />
+              <button type="button" onClick={() => {
+                if (faqDraft_ar.question && faqDraft_ar.answer) {
+                  setFaqs_ar(p => [...p, faqDraft_ar])
+                  setFaqDraft_ar({ question: '', answer: '' })
+                }
+              }} className="flex items-center gap-1.5 text-xs font-semibold text-[#E05C00] hover:underline">
+                <Plus className="w-3.5 h-3.5" /> Add Arabic FAQ
+              </button>
+            </div>
           </div>
         </Card>
 

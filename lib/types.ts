@@ -3,8 +3,11 @@ export interface Product {
   slug: string
   is_active: boolean
   title: string
+  title_ar?: string
   subtitle?: string
+  subtitle_ar?: string
   description?: string          // Rich description shown in the About section (admin editable)
+  description_ar?: string       // Tunisian Arabic description
   superprofile_url?: string     // SuperProfile.bio embed URL (optional)
   price: number
   original_price?: number
@@ -12,8 +15,11 @@ export interface Product {
   hero_image?: string
   preview_images: { url: string; caption?: string }[]
   features: string[]
+  features_ar?: string[]
   testimonials: { name: string; text: string; rating: number; avatar?: string }[]
+  testimonials_ar?: { name: string; text: string; rating: number; avatar?: string }[]
   faqs: { question: string; answer: string }[]
+  faqs_ar?: { question: string; answer: string }[]
   upsell_slugs: string[]
   sections: ProductSection[]
   created_at: string

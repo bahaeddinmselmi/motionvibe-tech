@@ -302,7 +302,7 @@ function CheckoutSidebar({
   const [error, setError] = useState('')
   const [flounciUrl, setFlounciUrl] = useState<string | null>(null)
   const [showUpsell, setShowUpsell] = useState(false)
-
+  const title = lang === 'ar' && product.title_ar ? product.title_ar : product.title
   const total = product.price + (upsellAdded ? UPSELL_PRICE : 0)
 
   async function submit(e: React.FormEvent) {
@@ -406,7 +406,7 @@ function CheckoutSidebar({
               style={{ background: OR }}>BUNDLE</div>
         }
         <div className="flex-1 min-w-0">
-          <div className="text-xs font-bold leading-snug" style={{ color: DARK }}>{product.title}</div>
+          <div className="text-xs font-bold leading-snug" style={{ color: DARK }}>{title}</div>
           <div className="text-[10px] mt-0.5" style={{ color: LITE }}>{t('instantDownload')}</div>
           <div className="flex items-center gap-2 mt-1.5">
             <span className="text-sm font-black" style={{ color: OR }}>{product.price} TND</span>
@@ -730,6 +730,13 @@ export default function LandingPageClient({
 
   const total = product.price + (upsellAdded ? UPSELL_PRICE : 0)
 
+  const title = lang === 'ar' && product.title_ar ? product.title_ar : product.title
+  const subtitle = lang === 'ar' && product.subtitle_ar ? product.subtitle_ar : product.subtitle
+  const description = lang === 'ar' && product.description_ar ? product.description_ar : product.description
+  const features = lang === 'ar' && product.features_ar && product.features_ar.length > 0 ? product.features_ar : product.features
+  const testimonials = lang === 'ar' && product.testimonials_ar && product.testimonials_ar.length > 0 ? product.testimonials_ar : product.testimonials
+  const faqs = lang === 'ar' && product.faqs_ar && product.faqs_ar.length > 0 ? product.faqs_ar : product.faqs
+
   return (
     <div className="min-h-screen bg-white pb-16 lg:pb-0" dir={lang === 'ar' ? 'rtl' : 'ltr'} style={{ fontFamily: 'var(--font-dm), sans-serif', color: DARK }}>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -753,10 +760,10 @@ export default function LandingPageClient({
       {/* ── TITLE BAR ── */}
       <div className="px-5 lg:px-10 py-5" style={{ borderBottom: `1px solid ${BDR}` }}>
         <h1 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, lineHeight: 1.25, color: DARK }}>
-          {product.title}
+          {title}
         </h1>
-        {product.subtitle && (
-          <p className="mt-1.5 text-base" style={{ color: MID, maxWidth: 640 }}>{product.subtitle}</p>
+        {subtitle && (
+          <p className="mt-1.5 text-base" style={{ color: MID, maxWidth: 640 }}>{subtitle}</p>
         )}
       </div>
 
@@ -769,7 +776,7 @@ export default function LandingPageClient({
           {/* Hero image */}
           {product.hero_image ? (
             <div className="rounded-2xl overflow-hidden shadow-sm" style={{ border: `1px solid ${BDR}` }}>
-              <img src={getAssetUrl(product.hero_image)} alt={product.title} className="w-full object-cover" />
+              <img src={getAssetUrl(product.hero_image)} alt={title} className="w-full object-cover" />
             </div>
           ) : (
             <div className="rounded-2xl overflow-hidden aspect-video flex items-center justify-center shadow-sm"
@@ -794,14 +801,14 @@ export default function LandingPageClient({
           {/* About */}
           <Sec>
             <H2>{t('whatIsThis')}</H2>
-            {product.description ? (
+            {description ? (
               <div
                 className="mt-4 text-base leading-relaxed prose max-w-none"
                 style={{ color: MID }}
-                dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
+                dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br/>') }}
               />
             ) : (
-              <p className="mt-4 text-base leading-relaxed" style={{ color: MID }}>{product.subtitle}</p>
+              <p className="mt-4 text-base leading-relaxed" style={{ color: MID }}>{subtitle}</p>
             )}
           </Sec>
 
@@ -825,10 +832,10 @@ export default function LandingPageClient({
           )}
 
           {/* What's included */}
-          {product.features.length > 0 && (
+          {features.length > 0 && (
             <Sec>
               <H2>{t('everythingYouGet')}</H2>
-              <BulletList items={product.features} />
+              <BulletList items={features} />
             </Sec>
           )}
 
@@ -836,11 +843,11 @@ export default function LandingPageClient({
           {product.sections.map((sec, i) => <SectionRenderer key={i} section={sec} />)}
 
           {/* Testimonials */}
-          {product.testimonials.length > 0 && (
+          {testimonials.length > 0 && (
             <Sec>
               <H2>{t('whatCustomersSay')}</H2>
               <div className="mt-5 grid sm:grid-cols-2 gap-4">
-                {product.testimonials.map((testi, idx) => (
+                {testimonials.map((testi, idx) => (
                   <div key={idx} className="p-5" style={{ border: `1px solid ${BDR}`, background: SAND }}>
                     <div className="flex gap-0.5 mb-3">
                       {[...Array(testi.rating)].map((_, j) => (
@@ -868,11 +875,11 @@ export default function LandingPageClient({
           )}
 
           {/* FAQ */}
-          {product.faqs.length > 0 && (
+          {faqs.length > 0 && (
             <Sec alt>
               <H2>{t('faq')}</H2>
               <div className="mt-5" style={{ borderTop: `1px solid ${BDR}` }}>
-                {product.faqs.map((f, idx) => <FAQItem key={idx} q={f.question} a={f.answer} />)}
+                {faqs.map((f, idx) => <FAQItem key={idx} q={f.question} a={f.answer} />)}
               </div>
             </Sec>
           )}

@@ -205,10 +205,14 @@ export default function EditProduct() {
   const [form, setForm] = useState({
     title: '', slug: '', subtitle: '', description: '', superprofile_url: '',
     price: '', original_price: '', ba9chich_product_id: '', hero_image: '',
+    title_ar: '', subtitle_ar: '', description_ar: '',
   })
   const [features, setFeatures] = useState<string[]>([])
+  const [features_ar, setFeatures_ar] = useState<string[]>([])
   const [faqs, setFaqs] = useState<{ question: string; answer: string }[]>([])
+  const [faqs_ar, setFaqs_ar] = useState<{ question: string; answer: string }[]>([])
   const [faqDraft, setFaqDraft] = useState({ question: '', answer: '' })
+  const [faqDraft_ar, setFaqDraft_ar] = useState({ question: '', answer: '' })
   const [sections, setSections] = useState<ProductSection[]>([])
   const [previewImages, setPreviewImages] = useState<{ url: string; caption?: string }[]>([])
   const [addingType, setAddingType] = useState('')
@@ -224,15 +228,20 @@ export default function EditProduct() {
           title: p.title || '',
           slug: p.slug || '',
           subtitle: p.subtitle || '',
-          description: (p as Product & { description?: string }).description || '',
-          superprofile_url: (p as Product & { superprofile_url?: string }).superprofile_url || '',
+          description: (p as any).description || '',
+          superprofile_url: (p as any).superprofile_url || '',
           price: String(p.price ?? ''),
           original_price: p.original_price ? String(p.original_price) : '',
           ba9chich_product_id: p.ba9chich_product_id ? String(p.ba9chich_product_id) : '',
           hero_image: p.hero_image || '',
+          title_ar: (p as any).title_ar || '',
+          subtitle_ar: (p as any).subtitle_ar || '',
+          description_ar: (p as any).description_ar || '',
         })
         setFeatures(p.features || [])
+        setFeatures_ar((p as any).features_ar || [])
         setFaqs(p.faqs || [])
+        setFaqs_ar((p as any).faqs_ar || [])
         setSections(Array.isArray(p.sections) ? p.sections : [])
         setPreviewImages(p.preview_images || [])
         setLoading(false)
@@ -283,6 +292,11 @@ export default function EditProduct() {
       ba9chich_product_id: form.ba9chich_product_id ? parseInt(form.ba9chich_product_id) : null,
       hero_image: form.hero_image || null,
       features, faqs, sections, preview_images: previewImages,
+      title_ar: form.title_ar || null,
+      subtitle_ar: form.subtitle_ar || null,
+      description_ar: form.description_ar || null,
+      features_ar: features_ar,
+      faqs_ar: faqs_ar,
     }).eq('id', id)
     if (err) { setError(err.message); setSaving(false); return }
     router.push('/admin/products')
@@ -385,6 +399,61 @@ export default function EditProduct() {
             {form.hero_image && (
               <img src={form.hero_image} alt="" className="mt-2 w-full max-h-40 object-cover rounded-xl border border-[#E0DDD8]" />
             )}
+          </div>
+        </Card>
+
+        {/* Tunisian Arabic Translation */}
+        <Card title="Tunisian Arabic Translation (تونسي عربي)">
+          <div>
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Product title (Arabic)</label>
+            <input className={inp} placeholder="e.g. أكبر باقة لتعديل الفيديو"
+              value={form.title_ar}
+              onChange={e => setForm(p => ({ ...p, title_ar: e.target.value }))} />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Subtitle (Arabic)</label>
+            <input className={inp} placeholder="One-liner in Arabic"
+              value={form.subtitle_ar}
+              onChange={e => setForm(p => ({ ...p, subtitle_ar: e.target.value }))} />
+          </div>
+          <div>
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Description (Arabic)</label>
+            <textarea rows={6} className={`${inp} resize-none`}
+              placeholder="Write the full product description in Arabic..."
+              value={form.description_ar}
+              onChange={e => setForm(p => ({ ...p, description_ar: e.target.value }))} />
+          </div>
+          <div className="pt-2">
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Features (Arabic)</label>
+            <TagInput label="" items={features_ar} onChange={setFeatures_ar} />
+          </div>
+          <div className="pt-2 border-t border-[#E0DDD8] mt-4">
+            <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Arabic FAQs</label>
+            {faqs_ar.map((fq, i) => (
+              <div key={i} className="flex gap-3 bg-[#F5F2EC] rounded-xl p-3 mb-2">
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium text-[#111] truncate">{fq.question}</div>
+                  <div className="text-xs text-[#888] mt-0.5 line-clamp-2">{fq.answer}</div>
+                </div>
+                <button type="button" onClick={() => setFaqs_ar(fs => fs.filter((_, j) => j !== i))}>
+                  <X className="w-4 h-4 text-[#BBB] hover:text-red-500" />
+                </button>
+              </div>
+            ))}
+            <div className="space-y-2">
+              <input className={inp} placeholder="Arabic Question" value={faqDraft_ar.question}
+                onChange={e => setFaqDraft_ar(p => ({ ...p, question: e.target.value }))} />
+              <input className={inp} placeholder="Arabic Answer" value={faqDraft_ar.answer}
+                onChange={e => setFaqDraft_ar(p => ({ ...p, answer: e.target.value }))} />
+              <button type="button" onClick={() => {
+                if (faqDraft_ar.question && faqDraft_ar.answer) {
+                  setFaqs_ar(p => [...p, faqDraft_ar])
+                  setFaqDraft_ar({ question: '', answer: '' })
+                }
+              }} className="flex items-center gap-1.5 text-xs font-semibold text-[#E05C00] hover:underline">
+                <Plus className="w-3.5 h-3.5" /> Add Arabic FAQ
+              </button>
+            </div>
           </div>
         </Card>
 
