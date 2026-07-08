@@ -17,6 +17,131 @@ const BDR  = '#E0DDD8'   // border
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
+const TRANSLATIONS = {
+  en: {
+    title: 'Digital Store',
+    moralStories: 'Moral Stories',
+    aboutProduct: 'About this product',
+    whatIsThis: 'What is this?',
+    seeItInAction: 'See it in action',
+    everythingYouGet: 'Everything you get',
+    whatCustomersSay: 'What customers say',
+    faq: 'Frequently Asked Questions',
+    emailAccess: 'Access will be sent to your email',
+    emailPlaceholder: 'Email Address',
+    firstNamePlaceholder: 'First name',
+    lastNamePlaceholder: 'Last name',
+    phonePlaceholder: '+216 · Phone number',
+    instantDownload: 'Instant digital download',
+    subTotal: 'Sub Total',
+    megaUpgrade: 'Mega Bundle Upgrade',
+    total: 'Total',
+    yesWantThis: 'Yes, I Want This! 🎉',
+    buyNow: 'Buy Now',
+    processing: 'Processing…',
+    securedBy: 'Secured by Flouci · Tunisia',
+    specialOffer: '🔥 Special Upgrade Offer',
+    megaBundleTitle: 'Mega Viral Reel Bundle',
+    megaBundleTagline: '15,000+ Reels · 9 Bundles included',
+    add: 'ADD',
+    added: '✓ Added',
+    downloadNotice: 'Instant download link sent by email',
+    secureNotice: 'Secure payment via Flouci',
+    noSubscription: 'Lifetime access — no subscription',
+    checkoutButton: 'Go to Checkout',
+    refundPolicy: 'Refund policy',
+    privacyPolicy: 'Privacy policy',
+    termsAndConditions: 'Terms and conditions',
+    orderReceived: 'Order Received!',
+    redirecting: 'Redirecting to Flouci payment in',
+    payWithFlouci: 'Pay with Flouci',
+    cancel: 'Cancel',
+    processingOrder: 'Processing Order...',
+    creatingLink: 'We are creating your secure checkout link. Please do not close or refresh this page.',
+    limitedOffer: 'Limited offer',
+    selectLanguage: 'Choose your language / اختر لغتك',
+    welcome: 'Welcome to Digital Store',
+  },
+  ar: {
+    title: 'المتجر الرقمي',
+    moralStories: 'قصص وعبر',
+    aboutProduct: 'حول هذا المنتج',
+    whatIsThis: 'شنية هذا؟',
+    seeItInAction: 'شوفو يخدم قدامك',
+    everythingYouGet: 'كل شي باش تتحصل عليه',
+    whatCustomersSay: 'آراء الحرفاء متاعنا',
+    faq: 'الأسئلة الشائعة',
+    emailAccess: 'الرابط باش يوصلك مباشرة على إيميلك',
+    emailPlaceholder: 'عنوان البريد الإلكتروني',
+    firstNamePlaceholder: 'الاسم الأول',
+    lastNamePlaceholder: 'اللقب',
+    phonePlaceholder: 'رقم الهاتف · 216+',
+    instantDownload: 'تحميل رقمي فوري',
+    subTotal: 'المجموع الفرعي',
+    megaUpgrade: 'ترقية الباقة العملاقة',
+    total: 'المجموع الإجمالي',
+    yesWantThis: 'إي، نحب نشري هذا! 🎉',
+    buyNow: 'اشري توة',
+    processing: 'قاعد يحضر…',
+    securedBy: 'دفع آمن عن طريق Flouci · تونس',
+    specialOffer: '🔥 عرض خاص ولفترة محدودة',
+    megaBundleTitle: 'الباقة العملاقة للفيديوهات الفيروسية',
+    megaBundleTagline: 'أكثر من 15,000 فيديو · 9 باقات مدمجة',
+    add: 'زيادة',
+    added: '✓ تمّت الإضافة',
+    downloadNotice: 'رابط التحميل يوصلك بالوقت على الإيميل',
+    secureNotice: 'دفع آمن وموثوق عن طريق Flouci',
+    noSubscription: 'شراء لمرة واحدة مدى الحياة — بدون اشتراك شهري',
+    checkoutButton: 'تعدى للدفع',
+    refundPolicy: 'سياسة الاسترجاع',
+    privacyPolicy: 'سياسة الخصوصية',
+    termsAndConditions: 'الشروط والأحكام',
+    orderReceived: 'تم تلقي الطلب بنجاح!',
+    redirecting: 'قاعدين نحولو فيك لصفحة الدفع Flouci في',
+    payWithFlouci: 'ادفع بـ Flouci',
+    cancel: 'إلغاء',
+    processingOrder: 'قاعدين نحضرو في طلبك...',
+    creatingLink: 'نصنعولك في رابط الدفع الآمن. يرجى عدم إغلاق أو تحديث الصفحة.',
+    limitedOffer: 'عرض محدود',
+    selectLanguage: 'اختر لغتك / Choose your language',
+    welcome: 'مرحباً بك في المتجر الرقمي',
+  }
+}
+
+function LanguageGate({ onSelect }: { onSelect: (lang: 'en' | 'ar') => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+      <div className="bg-white w-full max-w-sm p-8 text-center shadow-2xl rounded-3xl border border-[#E0DDD8] animate-in fade-in zoom-in duration-300">
+        <div className="w-16 h-16 mx-auto mb-4 bg-[#F5F2EC] rounded-2xl flex items-center justify-center text-3xl">
+          🌍
+        </div>
+        <h2 className="text-xl font-black mb-1 text-[#111111]">
+          اختر لغتك / Choose Language
+        </h2>
+        <p className="text-xs text-[#888888] mb-6">
+          Tunisian Arabic or English / الدارجة التونسية أو الإنقليزية
+        </p>
+        <div className="space-y-3">
+          <button
+            onClick={() => onSelect('ar')}
+            className="w-full font-bold text-base py-4 px-6 rounded-xl border-2 hover:border-[#E05C00] hover:bg-[#FFF7F2] transition text-[#111111]"
+            style={{ borderColor: '#E0DDD8' }}
+          >
+            🇹🇳 الدارجة التونسية
+          </button>
+          <button
+            onClick={() => onSelect('en')}
+            className="w-full font-bold text-base py-4 px-6 rounded-xl border-2 hover:border-[#E05C00] hover:bg-[#FFF7F2] transition text-[#111111]"
+            style={{ borderColor: '#E0DDD8' }}
+          >
+            🇬🇧 English
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function getAssetUrl(url: string | undefined | null) {
   if (!url) return ''
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url
@@ -28,43 +153,43 @@ function getAssetUrl(url: string | undefined | null) {
 }
 
 /* ── RedirectOverlay ── */
-function RedirectOverlay({ url, onCancel }: { url: string; onCancel: () => void }) {
+function RedirectOverlay({ url, onCancel, t }: { url: string; onCancel: () => void; t: (key: any) => string }) {
   const [n, setN] = useState(5)
   useEffect(() => {
     if (n <= 0) { window.location.href = url; return }
-    const t = setTimeout(() => setN(c => c - 1), 1000)
-    return () => clearTimeout(t)
+    const timer = setTimeout(() => setN(c => c - 1), 1000)
+    return () => clearTimeout(timer)
   }, [n, url])
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)' }}>
       <div className="bg-white w-full max-w-sm p-8 text-center shadow-2xl rounded-2xl">
         <div className="text-5xl font-bold mb-2" style={{ color: OR }}>✓</div>
-        <div className="text-xl font-bold mt-2 mb-1" style={{ color: DARK }}>Order Received!</div>
+        <div className="text-xl font-bold mt-2 mb-1" style={{ color: DARK }}>{t('orderReceived')}</div>
         <p className="text-sm mb-5" style={{ color: LITE }}>
-          Redirecting to Flouci payment in <strong style={{ color: OR }}>{n}s</strong>…
+          {t('redirecting')} <strong style={{ color: OR }}>{n}s</strong>…
         </p>
         <button onClick={() => { window.location.href = url }}
           className="w-full font-black text-sm uppercase tracking-wider py-3.5 text-white flex items-center justify-center gap-2 hover:brightness-110 transition mb-3"
           style={{ background: OR }}>
-          <ArrowRight className="w-4 h-4" /> Pay with Flouci
+          <ArrowRight className="w-4 h-4" /> {t('payWithFlouci')}
         </button>
-        <button onClick={onCancel} className="text-sm w-full py-1" style={{ color: LITE }}>← Cancel</button>
+        <button onClick={onCancel} className="text-sm w-full py-1" style={{ color: LITE }}>← {t('cancel')}</button>
       </div>
     </div>
   )
 }
 
 /* ── LoadingOverlay ── */
-function LoadingOverlay() {
+function LoadingOverlay({ t }: { t: (key: any) => string }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(6px)' }}>
       <div className="bg-white w-full max-w-sm p-8 text-center shadow-2xl rounded-2xl flex flex-col items-center">
         <Loader2 className="w-12 h-12 animate-spin mb-4" style={{ color: OR }} />
-        <div className="text-xl font-bold mb-2" style={{ color: DARK }}>Processing Order...</div>
+        <div className="text-xl font-bold mb-2" style={{ color: DARK }}>{t('processingOrder')}</div>
         <p className="text-sm px-4" style={{ color: LITE }}>
-          We are creating your secure checkout link. Please do not close or refresh this page.
+          {t('creatingLink')}
         </p>
       </div>
     </div>
@@ -87,7 +212,7 @@ const UPSELL_BONUS = [
   'Satisfying Reels Bundle',
 ]
 
-function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
+function UpsellModal({ onAccept, onDecline, t }: { onAccept: () => void; onDecline: () => void; t: (key: any) => string }) {
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
       style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(6px)' }}>
@@ -97,7 +222,7 @@ function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
         {/* Badge */}
         <div className="text-center pt-5 pb-2 px-5">
           <span className="inline-block text-[11px] font-black uppercase tracking-widest px-3 py-1 text-white rounded-full"
-            style={{ background: OR }}>⚡ Limited Time Offer</span>
+            style={{ background: OR }}>⚡ {t('limitedOffer')}</span>
         </div>
 
         {/* Image */}
@@ -108,14 +233,14 @@ function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
         {/* Title */}
         <div className="px-5 pt-4 pb-2 text-center">
           <h3 style={{ fontSize: 20, fontWeight: 900, color: DARK, lineHeight: 1.25 }}>
-            Upgrade to Mega Viral Reel Bundle
+            {t('megaBundleTitle')}
           </h3>
-          <p className="text-sm mt-1 font-semibold" style={{ color: OR }}>15,000+ Reels — One-time upgrade</p>
+          <p className="text-sm mt-1 font-semibold" style={{ color: OR }}>{t('megaBundleTagline')}</p>
         </div>
 
         {/* Bundles */}
         <div className="px-5 pb-3">
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: LITE }}>🚀 What you unlock</p>
+          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: LITE }}>🚀 {t('everythingYouGet')}</p>
           <div className="space-y-1.5">
             {UPSELL_BUNDLES.map((b, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -124,7 +249,7 @@ function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
               </div>
             ))}
           </div>
-          <p className="text-xs font-bold uppercase tracking-wider mt-3 mb-2" style={{ color: LITE }}>🎁 Bonus content</p>
+          <p className="text-xs font-bold uppercase tracking-wider mt-3 mb-2" style={{ color: LITE }}>🎁 {t('specialOffer')}</p>
           <div className="space-y-1.5">
             {UPSELL_BONUS.map((b, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -138,18 +263,18 @@ function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
         {/* Price + CTA */}
         <div className="px-5 pb-6 pt-2" style={{ borderTop: `2px dashed ${BDR}` }}>
           <div className="flex items-center justify-between mb-3 pt-3">
-            <span className="text-sm font-semibold" style={{ color: MID }}>Upgrade price</span>
+            <span className="text-sm font-semibold" style={{ color: MID }}>{t('subTotal')}</span>
             <span className="text-2xl font-black" style={{ color: OR }}>+{UPSELL_PRICE} TND</span>
           </div>
           <button onClick={onAccept}
             className="w-full font-black text-sm uppercase tracking-wider py-4 text-white flex items-center justify-center gap-2 hover:brightness-110 transition rounded-xl mb-2"
             style={{ background: OR }}>
-            <ArrowRight className="w-4 h-4" /> Yes! Add Mega Bundle — +{UPSELL_PRICE} TND
+            <ArrowRight className="w-4 h-4" /> {t('yesWantThis')} — +{UPSELL_PRICE} TND
           </button>
           <button onClick={onDecline}
             className="w-full text-xs py-2 hover:underline transition"
             style={{ color: LITE }}>
-            No thanks, I'll pass on this offer
+            {t('cancel')}
           </button>
         </div>
       </div>
@@ -158,14 +283,25 @@ function UpsellModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
 }
 
 /* ── Checkout Sidebar ── */
-function CheckoutSidebar({ product }: { product: Product }) {
+function CheckoutSidebar({
+  product,
+  lang,
+  t,
+  upsellAdded,
+  setUpsellAdded
+}: {
+  product: Product
+  lang: 'en' | 'ar'
+  t: (key: any) => string
+  upsellAdded: boolean
+  setUpsellAdded: (val: boolean) => void
+}) {
   const [form, setForm] = useState({ first_name: '', last_name: '', email: '', phone: '' })
   const [wantThis, setWantThis] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [flounciUrl, setFlounciUrl] = useState<string | null>(null)
   const [showUpsell, setShowUpsell] = useState(false)
-  const [upsellAdded, setUpsellAdded] = useState(false)
 
   const total = product.price + (upsellAdded ? UPSELL_PRICE : 0)
 
@@ -173,11 +309,11 @@ function CheckoutSidebar({ product }: { product: Product }) {
     e.preventDefault()
     setError('')
     if (!wantThis) {
-      setError('Please confirm you want this product.')
+      setError(lang === 'ar' ? 'يرجى تأكيد رغبتك في شراء المنتج.' : 'Please confirm you want this product.')
       return
     }
     if (!form.first_name || !form.last_name || !form.email || !form.phone) {
-      setError('All fields are required.')
+      setError(lang === 'ar' ? 'جميع الحقول مطلوبة.' : 'All fields are required.')
       return
     }
     setLoading(true)
@@ -188,26 +324,27 @@ function CheckoutSidebar({ product }: { product: Product }) {
         body: JSON.stringify({ slug: product.slug, ...form, upsell: upsellAdded }),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Something went wrong')
+      if (!res.ok) throw new Error(data.error || (lang === 'ar' ? 'حدث خطأ ما، يرجى المحاولة لاحقاً.' : 'Something went wrong'))
       setFlounciUrl(data.flounciUrl)
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Please try again.')
+      setError(err instanceof Error ? err.message : (lang === 'ar' ? 'يرجى المحاولة مجدداً.' : 'Please try again.'))
     } finally {
       setLoading(false)
     }
   }
 
-  if (flounciUrl) return <RedirectOverlay url={flounciUrl} onCancel={() => setFlounciUrl(null)} />
+  if (flounciUrl) return <RedirectOverlay url={flounciUrl} onCancel={() => setFlounciUrl(null)} t={t} />
 
   const inp = "w-full text-sm bg-white border outline-none px-3.5 py-3 rounded-xl transition-colors focus:border-[#E05C00] placeholder-[#BBBBBB]"
 
   return (
     <>
-      {loading && <LoadingOverlay />}
+      {loading && <LoadingOverlay t={t} />}
       {showUpsell && (
         <UpsellModal
           onAccept={() => { setUpsellAdded(true); setShowUpsell(false) }}
           onDecline={() => setShowUpsell(false)}
+          t={t}
         />
       )}
       <form onSubmit={submit}
@@ -230,7 +367,7 @@ function CheckoutSidebar({ product }: { product: Product }) {
       {/* Card header */}
       <div className="px-5 py-4" style={{ borderBottom: `2px dashed ${BDR}`, background: SAND }}>
         <p className="text-xs font-semibold tracking-wider uppercase" style={{ color: MID }}>
-          Access will be sent to your email
+          {t('emailAccess')}
         </p>
       </div>
 
@@ -243,19 +380,19 @@ function CheckoutSidebar({ product }: { product: Product }) {
           </div>
         )}
 
-        <input type="email" placeholder="Email Address" required
+        <input type="email" placeholder={t('emailPlaceholder')} required
           style={{ borderColor: BDR }} className={inp}
           value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))} />
 
         <div className="grid grid-cols-2 gap-2.5">
-          <input placeholder="First name" required
+          <input placeholder={t('firstNamePlaceholder')} required
             style={{ borderColor: BDR }} className={inp}
             value={form.first_name} onChange={e => setForm(p => ({ ...p, first_name: e.target.value }))} />
-          <input placeholder="Last name" required
+          <input placeholder={t('lastNamePlaceholder')} required
             style={{ borderColor: BDR }} className={inp}
             value={form.last_name} onChange={e => setForm(p => ({ ...p, last_name: e.target.value }))} />
         </div>
-        <input placeholder="+216 · Phone number" required
+        <input placeholder={t('phonePlaceholder')} required
           style={{ borderColor: BDR }} className={inp}
           value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value }))} />
       </div>
@@ -270,7 +407,7 @@ function CheckoutSidebar({ product }: { product: Product }) {
         }
         <div className="flex-1 min-w-0">
           <div className="text-xs font-bold leading-snug" style={{ color: DARK }}>{product.title}</div>
-          <div className="text-[10px] mt-0.5" style={{ color: LITE }}>Instant digital download</div>
+          <div className="text-[10px] mt-0.5" style={{ color: LITE }}>{t('instantDownload')}</div>
           <div className="flex items-center gap-2 mt-1.5">
             <span className="text-sm font-black" style={{ color: OR }}>{product.price} TND</span>
             {product.original_price && (
@@ -284,23 +421,25 @@ function CheckoutSidebar({ product }: { product: Product }) {
       <div className="mx-5 mb-4 rounded-2xl overflow-hidden"
         style={{ border: upsellAdded ? `2px solid ${OR}` : `2px dashed ${BDR}`, background: upsellAdded ? '#FFF7F2' : '#fff' }}>
         <div className="px-4 py-3" style={{ borderBottom: `1px dashed ${BDR}`, background: upsellAdded ? '#FFF0E6' : SAND }}>
-          <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: OR }}>🔥 Special Upgrade Offer</span>
+          <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: OR }}>{t('specialOffer')}</span>
         </div>
         <div className="p-3 flex items-center gap-3">
-          <img src={`${BASE_PATH}/mega-bundle.jpg`} alt="Mega Bundle" className="w-14 h-14 object-cover flex-shrink-0 rounded-xl" style={{ border: `1px solid ${BDR}` }} />
-          <div className="flex-1 min-w-0">
-            <div className="text-xs font-bold leading-tight" style={{ color: DARK }}>Mega Viral Reel Bundle</div>
-            <div className="text-[10px] mt-0.5" style={{ color: LITE }}>15,000+ Reels · 9 Bundles included</div>
-            <div className="text-sm font-black mt-1" style={{ color: OR }}>+{UPSELL_PRICE} TND only</div>
+          <div className="flex items-center gap-3 cursor-pointer flex-1 min-w-0" onClick={() => setShowUpsell(true)}>
+            <img src={`${BASE_PATH}/mega-bundle.jpg`} alt="Mega Bundle" className="w-14 h-14 object-cover flex-shrink-0 rounded-xl" style={{ border: `1px solid ${BDR}` }} />
+            <div className="min-w-0">
+              <div className="text-xs font-bold leading-tight" style={{ color: DARK }}>{t('megaBundleTitle')}</div>
+              <div className="text-[10px] mt-0.5" style={{ color: LITE }}>{t('megaBundleTagline')}</div>
+              <div className="text-sm font-black mt-1" style={{ color: OR }}>+{UPSELL_PRICE} TND</div>
+            </div>
           </div>
           {upsellAdded ? (
             <button type="button" onClick={() => setUpsellAdded(false)}
               className="flex-shrink-0 text-[10px] font-bold px-2.5 py-1.5 rounded-lg border transition"
-              style={{ borderColor: OR, color: OR, background: '#FFF7F2' }}>✓ Added</button>
+              style={{ borderColor: OR, color: OR, background: '#FFF7F2' }}>{t('added')}</button>
           ) : (
-            <button type="button" onClick={() => setShowUpsell(true)}
+            <button type="button" onClick={() => setUpsellAdded(true)}
               className="flex-shrink-0 text-[10px] font-black uppercase px-3 py-1.5 text-white rounded-lg hover:brightness-110 transition"
-              style={{ background: OR }}>ADD</button>
+              style={{ background: OR }}>{t('add')}</button>
           )}
         </div>
       </div>
@@ -308,17 +447,17 @@ function CheckoutSidebar({ product }: { product: Product }) {
       {/* Totals */}
       <div className="px-5 pb-4 space-y-2" style={{ borderTop: `2px dashed ${BDR}`, paddingTop: 16 }}>
         <div className="flex justify-between text-sm">
-          <span style={{ color: LITE }}>Sub Total</span>
+          <span style={{ color: LITE }}>{t('subTotal')}</span>
           <span className="font-semibold" style={{ color: DARK }}>{product.price} TND</span>
         </div>
         {upsellAdded && (
           <div className="flex justify-between text-sm">
-            <span style={{ color: LITE }}>Mega Bundle Upgrade</span>
+            <span style={{ color: LITE }}>{t('megaUpgrade')}</span>
             <span className="font-semibold" style={{ color: OR }}>+{UPSELL_PRICE} TND</span>
           </div>
         )}
         <div className="flex justify-between text-base font-black">
-          <span style={{ color: DARK }}>Total</span>
+          <span style={{ color: DARK }}>{t('total')}</span>
           <span style={{ color: OR }}>{total} TND</span>
         </div>
       </div>
@@ -339,7 +478,7 @@ function CheckoutSidebar({ product }: { product: Product }) {
             {wantThis && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
           </div>
           <span className="text-sm font-semibold leading-tight" style={{ color: wantThis ? OR : MID }}>
-            Yes, I Want This! 🎉
+            {t('yesWantThis')}
           </span>
         </label>
       </div>
@@ -350,12 +489,12 @@ function CheckoutSidebar({ product }: { product: Product }) {
           className="w-full font-black text-sm uppercase tracking-wider py-4 text-white flex items-center justify-center gap-2.5 hover:brightness-110 transition disabled:opacity-60 rounded-xl"
           style={{ background: loading ? '#9A3E00' : OR }}>
           {loading
-            ? <><Loader2 className="w-4 h-4 animate-spin" /> Processing…</>
-            : <><ArrowRight className="w-4 h-4" /> Buy Now — {total} TND</>}
+            ? <><Loader2 className="w-4 h-4 animate-spin" /> {t('processing')}</>
+            : <><ArrowRight className="w-4 h-4" /> {t('buyNow')} — {total} TND</>}
         </button>
         <div className="flex items-center justify-center gap-1.5 mt-3">
           <Shield className="w-3.5 h-3.5" style={{ color: LITE }} />
-          <span className="text-[11px]" style={{ color: LITE }}>Secured by Flouci · Tunisia</span>
+          <span className="text-[11px]" style={{ color: LITE }}>{t('securedBy')}</span>
         </div>
       </div>
     </form>
@@ -556,18 +695,43 @@ export default function LandingPageClient({
 
   const paid = searchParams?.payment === 'success'
 
+  const [lang, setLang] = useState<'en' | 'ar' | null>(null)
+  const [upsellAdded, setUpsellAdded] = useState(false)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('mv_lang') as 'en' | 'ar' | null
+    if (saved) {
+      setLang(saved)
+    }
+  }, [])
+
+  const handleSelectLang = (l: 'en' | 'ar') => {
+    localStorage.setItem('mv_lang', l)
+    setLang(l)
+  }
+
   if (!product) return (
     <div className="min-h-screen flex items-center justify-center text-sm tracking-widest uppercase bg-white" style={{ color: LITE }}>
       Product not found
     </div>
   )
 
+  if (!lang) {
+    return <LanguageGate onSelect={handleSelectLang} />
+  }
+
+  const t = (key: keyof typeof TRANSLATIONS.en) => {
+    return TRANSLATIONS[lang][key]
+  }
+
   const discount = product.original_price
     ? Math.round(100 - (product.price / product.original_price) * 100)
     : 0
 
+  const total = product.price + (upsellAdded ? UPSELL_PRICE : 0)
+
   return (
-    <div className="min-h-screen bg-white pb-16 lg:pb-0" style={{ fontFamily: 'var(--font-dm), sans-serif', color: DARK }}>
+    <div className="min-h-screen bg-white pb-16 lg:pb-0" dir={lang === 'ar' ? 'rtl' : 'ltr'} style={{ fontFamily: 'var(--font-dm), sans-serif', color: DARK }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .no-scrollbar::-webkit-scrollbar {
           display: none;
@@ -577,11 +741,11 @@ export default function LandingPageClient({
       {/* ── TOPBAR ── */}
       <div className="px-5 lg:px-10 py-3 flex items-center justify-between"
         style={{ borderBottom: `1px solid ${BDR}`, background: SAND }}>
-        <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: LITE }}>Digital Store</span>
+        <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: LITE }}>{t('title')}</span>
         {discount > 0 && (
           <span className="text-xs font-black uppercase tracking-wider px-3 py-1 text-white"
             style={{ background: OR }}>
-            {discount}% OFF — Limited offer
+            {discount}% {t('limitedOffer')}
           </span>
         )}
       </div>
@@ -623,13 +787,13 @@ export default function LandingPageClient({
               className="w-full font-black text-sm uppercase tracking-wider py-4 text-white flex items-center justify-center gap-2 hover:brightness-110 transition rounded-xl shadow-md"
               style={{ background: OR }}
             >
-              <ArrowRight className="w-4 h-4" /> Get Instant Access — Go to Checkout
+              <ArrowRight className="w-4 h-4" /> {t('checkoutButton')}
             </button>
           </div>
 
           {/* About */}
           <Sec>
-            <H2>What is this?</H2>
+            <H2>{t('whatIsThis')}</H2>
             {product.description ? (
               <div
                 className="mt-4 text-base leading-relaxed prose max-w-none"
@@ -644,7 +808,7 @@ export default function LandingPageClient({
           {/* Previews */}
           {product.preview_images.length > 0 && (
             <Sec alt>
-              <H2>See it in action</H2>
+              <H2>{t('seeItInAction')}</H2>
               <div className="mt-5 grid grid-cols-1 gap-3">
                 {product.preview_images.map((img, i) => (
                   <div key={i} className="relative group overflow-hidden" style={{ border: `1px solid ${BDR}` }}>
@@ -663,7 +827,7 @@ export default function LandingPageClient({
           {/* What's included */}
           {product.features.length > 0 && (
             <Sec>
-              <H2>Everything you get</H2>
+              <H2>{t('everythingYouGet')}</H2>
               <BulletList items={product.features} />
             </Sec>
           )}
@@ -674,27 +838,27 @@ export default function LandingPageClient({
           {/* Testimonials */}
           {product.testimonials.length > 0 && (
             <Sec>
-              <H2>What customers say</H2>
+              <H2>{t('whatCustomersSay')}</H2>
               <div className="mt-5 grid sm:grid-cols-2 gap-4">
-                {product.testimonials.map((t, i) => (
-                  <div key={i} className="p-5" style={{ border: `1px solid ${BDR}`, background: SAND }}>
+                {product.testimonials.map((testi, idx) => (
+                  <div key={idx} className="p-5" style={{ border: `1px solid ${BDR}`, background: SAND }}>
                     <div className="flex gap-0.5 mb-3">
-                      {[...Array(t.rating)].map((_, j) => (
+                      {[...Array(testi.rating)].map((_, j) => (
                         <Star key={j} className="w-4 h-4 fill-current" style={{ color: '#F59E0B' }} />
                       ))}
                     </div>
                     <p className="text-base leading-relaxed mb-4 italic" style={{ color: MID }}>
-                      &ldquo;{t.text}&rdquo;
+                      &ldquo;{testi.text}&rdquo;
                     </p>
                     <div className="flex items-center gap-2.5">
-                      {t.avatar
-                        ? <img src={getAssetUrl(t.avatar)} alt={t.name} className="w-8 h-8 object-cover" style={{ border: `1px solid ${BDR}` }} />
+                      {testi.avatar
+                        ? <img src={getAssetUrl(testi.avatar)} alt={testi.name} className="w-8 h-8 object-cover" style={{ border: `1px solid ${BDR}` }} />
                         : <div className="w-8 h-8 flex items-center justify-center text-xs font-black text-white"
-                            style={{ background: OR }}>{t.name[0]}</div>
+                            style={{ background: OR }}>{testi.name[0]}</div>
                       }
                       <div>
-                        <div className="text-sm font-bold" style={{ color: DARK }}>{t.name}</div>
-                        <div className="text-[11px]" style={{ color: LITE }}>Verified customer</div>
+                        <div className="text-sm font-bold" style={{ color: DARK }}>{testi.name}</div>
+                        <div className="text-[11px]" style={{ color: LITE }}>{lang === 'ar' ? 'حريف مؤكد' : 'Verified customer'}</div>
                       </div>
                     </div>
                   </div>
@@ -706,22 +870,24 @@ export default function LandingPageClient({
           {/* FAQ */}
           {product.faqs.length > 0 && (
             <Sec alt>
-              <H2>Frequently Asked Questions</H2>
+              <H2>{t('faq')}</H2>
               <div className="mt-5" style={{ borderTop: `1px solid ${BDR}` }}>
-                {product.faqs.map((f, i) => <FAQItem key={i} q={f.question} a={f.answer} />)}
+                {product.faqs.map((f, idx) => <FAQItem key={idx} q={f.question} a={f.answer} />)}
               </div>
             </Sec>
           )}
 
           {/* Mobile Checkout Form */}
           <div ref={formMobileRef} className="lg:hidden mt-6">
-            <CheckoutSidebar product={product} />
+            <CheckoutSidebar product={product} lang={lang} t={t} upsellAdded={upsellAdded} setUpsellAdded={setUpsellAdded} />
           </div>
 
           {/* Footer links */}
           <div className="py-4 flex flex-wrap gap-5">
-            {['Refund policy', 'Privacy policy', 'Terms and conditions'].map(l => (
-              <button key={l} className="text-sm hover:underline transition" style={{ color: LITE }}>{l}</button>
+            {['refundPolicy', 'privacyPolicy', 'termsAndConditions'].map((key) => (
+              <button key={key} className="text-sm hover:underline transition" style={{ color: LITE }}>
+                {t(key as any)}
+              </button>
             ))}
           </div>
         </div>
@@ -736,13 +902,13 @@ export default function LandingPageClient({
             background: '#fff'
           }}>
           <div className="p-5">
-            <CheckoutSidebar product={product} />
+            <CheckoutSidebar product={product} lang={lang} t={t} upsellAdded={upsellAdded} setUpsellAdded={setUpsellAdded} />
             {/* Trust list */}
             <div className="mt-4 space-y-2.5">
               {[
-                { Icon: Download, text: 'Instant download link sent by email' },
-                { Icon: Shield, text: 'Secure payment via Flouci' },
-                { Icon: Clock, text: 'Lifetime access — no subscription' },
+                { Icon: Download, text: t('downloadNotice') },
+                { Icon: Shield, text: t('secureNotice') },
+                { Icon: Clock, text: t('noSubscription') },
               ].map(({ Icon, text }, i) => (
                 <div key={i} className="flex items-center gap-2.5">
                   <Icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: OR }} />
@@ -759,16 +925,16 @@ export default function LandingPageClient({
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between px-4 py-3 shadow-lg"
           style={{ background: '#fff', borderTop: `1px solid ${BDR}` }}>
           <div>
-            <div className="text-[10px] uppercase tracking-wider" style={{ color: LITE }}>Total</div>
+            <div className="text-[10px] uppercase tracking-wider" style={{ color: LITE }}>{t('total')}</div>
             <div className="font-black text-xl" style={{ fontFamily: 'var(--font-inter)', color: OR, lineHeight: 1, fontSize: 26 }}>
-              {product.price} TND
+              {total} TND
             </div>
           </div>
           <button
             onClick={() => formMobileRef.current?.scrollIntoView({ behavior: 'smooth' })}
             className="font-black text-xs uppercase tracking-wider px-6 py-3 text-white flex items-center gap-2 hover:brightness-110 transition rounded-xl"
             style={{ background: OR }}>
-            <ArrowRight className="w-3.5 h-3.5" /> Go to Checkout
+            <ArrowRight className="w-3.5 h-3.5" /> {t('checkoutButton')}
           </button>
         </div>
       )}

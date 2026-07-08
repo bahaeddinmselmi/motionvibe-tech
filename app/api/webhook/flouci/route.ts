@@ -86,6 +86,7 @@ async function sendDeliveryEmail(order: {
   customer_email: string
   customer_name: string
   product_id: string
+  amount: any
 }) {
   const RESEND_KEY = process.env.RESEND_API_KEY
   if (!RESEND_KEY) {
@@ -97,11 +98,25 @@ async function sendDeliveryEmail(order: {
   const db = createServiceClient()
   const { data: product } = await db
     .from('products')
-    .select('title, delivery_content')
+    .select('title, price, delivery_content')
     .eq('id', order.product_id)
     .single()
 
   if (!product) return
+
+  // Check if they bought the upsell (+30 DT upgrade)
+  const boughtUpsell = Number(order.amount) >= Number(product.price) + 25
+
+  let deliveryHtml = product.delivery_content || '<p>Your download link will appear here.</p>'
+
+  if (boughtUpsell) {
+    deliveryHtml += `
+      <hr style="border:none;border-top:1px dashed #E0DDD8;margin:24px 0"/>
+      <h3 style="color:#E05C00;margin-top:0">🎁 Upgrade: Mega Viral Reel Bundle (15000+ Reels)</h3>
+      <p>Thank you for purchasing the Mega Bundle Upgrade! Here is your download link:</p>
+      <p><a href="https://drive.google.com/drive/folders/your-mega-bundle-google-drive-link-here" style="background:#E05C00;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block;font-weight:bold;">Access Mega Bundle ↗</a></p>
+    `
+  }
 
   try {
     await fetch('https://api.resend.com/emails', {
@@ -119,7 +134,7 @@ async function sendDeliveryEmail(order: {
             <h2 style="color:#111">Hi ${order.customer_name},</h2>
             <p>Your payment was confirmed. Here is your download:</p>
             <div style="background:#f5f5f5;border-radius:8px;padding:20px;margin:24px 0">
-              ${product.delivery_content || '<p>Your download link will appear here.</p>'}
+              ${deliveryHtml}
             </div>
             <p style="color:#888;font-size:13px">Order ID: ${order.id}</p>
           </div>

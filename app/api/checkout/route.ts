@@ -9,6 +9,7 @@ const schema = z.object({
   last_name:  z.string().min(1),
   email:      z.string().email(),
   phone:      z.string().min(6),
+  upsell:     z.boolean().optional(),
 })
 
 function err(msg: string, status = 500) {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
   const parsed = schema.safeParse(body)
   if (!parsed.success) return err(parsed.error.issues[0].message, 400)
 
-  const { slug, first_name, last_name, email, phone } = parsed.data
+  const { slug, first_name, last_name, email, phone, upsell } = parsed.data
   const db = createServiceClient()
 
   // Load product
@@ -37,6 +38,12 @@ export async function POST(req: NextRequest) {
   if (productErr || !product) return err('Product not found', 404)
   if (!product.ba9chich_product_id) return err('Product not configured — ba9chich ID missing', 500)
 
+  // Calculate final price: base price + 30 DT if upsell is chosen
+  const finalPrice = Number(product.price) + (upsell ? 30 : 0)
+  
+  // Set WooCommerce product ID for upsell (defaulting to 11310 for the upgrade pack)
+  const upsellProductId = upsell ? 11310 : undefined
+
   // Create pending order
   const { data: order, error: orderErr } = await db
     .from('orders')
@@ -45,7 +52,7 @@ export async function POST(req: NextRequest) {
       customer_name:  `${first_name} ${last_name}`,
       customer_email: email,
       customer_phone: phone,
-      amount:         product.price,
+      amount:         finalPrice,
       payment_status: 'pending',
     })
     .select('id')
@@ -60,6 +67,7 @@ export async function POST(req: NextRequest) {
   try {
     const flounciUrl = await generateFlouciUrl({
       productId: product.ba9chich_product_id,
+      upsellProductId,
       firstName: first_name,
       lastName:  last_name,
       email,

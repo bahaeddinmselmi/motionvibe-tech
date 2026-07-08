@@ -65,12 +65,13 @@ function mergeCookies(a: string, b: string): string {
 
 export async function generateFlouciUrl(params: {
   productId: number
+  upsellProductId?: number
   firstName: string
   lastName: string
   email: string
   phone: string
 }): Promise<string> {
-  const { productId, firstName, lastName, email, phone } = params
+  const { productId, upsellProductId, firstName, lastName, email, phone } = params
   let cookies = ''
 
   /* 1 — Classic add-to-cart URL, no nonce */
@@ -87,6 +88,23 @@ export async function generateFlouciUrl(params: {
     cookies = mergeCookies(cookies, parseCookies(rr.headers))
     loc = (rr.headers['location'] as string) || ''
     console.log('[ba9chich] redirect', i + 1, p, rr.status)
+  }
+
+  /* 1b — Add upsell product to cart if selected */
+  if (upsellProductId) {
+    console.log('[ba9chich] step 1b: add-to-cart upsell', upsellProductId)
+    const r1b = await get(`/?add-to-cart=${upsellProductId}&quantity=1`, cookies)
+    cookies = mergeCookies(cookies, parseCookies(r1b.headers))
+    
+    // Follow redirects for upsell if any
+    let locB = (r1b.headers['location'] as string) || ''
+    for (let i = 0; i < 3 && locB; i++) {
+      const p = locB.startsWith('http') ? new URL(locB).pathname + new URL(locB).search : locB
+      const rr = await get(p, cookies)
+      cookies = mergeCookies(cookies, parseCookies(rr.headers))
+      locB = (rr.headers['location'] as string) || ''
+      console.log('[ba9chich] upsell redirect', i + 1, p, rr.status)
+    }
   }
 
   /* 2 — Load /checkout/ to get process-checkout nonce */
