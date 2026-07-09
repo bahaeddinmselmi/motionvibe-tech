@@ -235,6 +235,7 @@ export default function NewProduct() {
     ba9chich_product_id: '', hero_image: '',
     title_ar: '', subtitle_ar: '', description_ar: '',
   })
+  const [showUpsellField, setShowUpsellField] = useState(true)
   const [features, setFeatures] = useState<string[]>([])
   const [features_ar, setFeatures_ar] = useState<string[]>([])
   const [faqs, setFaqs] = useState<{ question: string; answer: string }[]>([])
@@ -299,6 +300,7 @@ export default function NewProduct() {
       description_ar: form.description_ar || null,
       features_ar: features_ar,
       faqs_ar: faqs_ar,
+      show_upsell: showUpsellField,
     })
     if (err) { setError(err.message); setSaving(false); return }
     router.push('/admin/products')
@@ -373,6 +375,18 @@ export default function NewProduct() {
           <div>
             <label className="block text-[11px] font-semibold tracking-wider uppercase text-[#888] mb-1.5">Hero image URL</label>
             <input className={inp} placeholder="https://..." {...f('hero_image')} />
+          </div>
+          <div className="flex items-center gap-2 pt-2">
+            <input
+              type="checkbox"
+              id="show_upsell_checkbox"
+              checked={showUpsellField}
+              onChange={e => setShowUpsellField(e.target.checked)}
+              className="w-4 h-4 rounded text-[#E05C00] focus:ring-[#E05C00] border-[#E0DDD8] cursor-pointer"
+            />
+            <label htmlFor="show_upsell_checkbox" className="text-sm font-semibold text-[#111] cursor-pointer select-none">
+              Show Upsell Addon Pack (Special Upgrade Offer)
+            </label>
           </div>
         </Card>
 

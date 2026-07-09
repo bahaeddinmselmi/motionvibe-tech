@@ -413,31 +413,33 @@ function CheckoutSidebar({
       </div>
 
       {/* ── Upsell Order Bump ── */}
-      <div className="mx-5 mb-4 rounded-2xl overflow-hidden"
-        style={{ border: upsellAdded ? `2px solid ${OR}` : `2px dashed ${BDR}`, background: upsellAdded ? '#FFF7F2' : '#fff' }}>
-        <div className="px-4 py-3" style={{ borderBottom: `1px dashed ${BDR}`, background: upsellAdded ? '#FFF0E6' : SAND }}>
-          <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: OR }}>{t('specialOffer')}</span>
-        </div>
-        <div className="p-3 flex items-center gap-3">
-          <div className="flex items-center gap-3 cursor-pointer flex-1 min-w-0" onClick={() => setShowUpsell(true)}>
-            <img src={`${BASE_PATH}/mega-bundle.jpg`} alt="Mega Bundle" className="w-14 h-14 object-cover flex-shrink-0 rounded-xl" style={{ border: `1px solid ${BDR}` }} />
-            <div className="min-w-0">
-              <div className="text-xs font-bold leading-tight" style={{ color: DARK }}>{t('megaBundleTitle')}</div>
-              <div className="text-[10px] mt-0.5" style={{ color: LITE }}>{t('megaBundleTagline')}</div>
-              <div className="text-sm font-black mt-1" style={{ color: OR }}>+{UPSELL_PRICE} TND</div>
-            </div>
+      {product.show_upsell !== false && (
+        <div className="mx-5 mb-4 rounded-2xl overflow-hidden"
+          style={{ border: upsellAdded ? `2px solid ${OR}` : `2px dashed ${BDR}`, background: upsellAdded ? '#FFF7F2' : '#fff' }}>
+          <div className="px-4 py-3" style={{ borderBottom: `1px dashed ${BDR}`, background: upsellAdded ? '#FFF0E6' : SAND }}>
+            <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: OR }}>{t('specialOffer')}</span>
           </div>
-          {upsellAdded ? (
-            <button type="button" onClick={() => setUpsellAdded(false)}
-              className="flex-shrink-0 text-[10px] font-bold px-2.5 py-1.5 rounded-lg border transition"
-              style={{ borderColor: OR, color: OR, background: '#FFF7F2' }}>{t('added')}</button>
-          ) : (
-            <button type="button" onClick={() => setUpsellAdded(true)}
-              className="flex-shrink-0 text-[10px] font-black uppercase px-3 py-1.5 text-white rounded-lg hover:brightness-110 transition"
-              style={{ background: OR }}>{t('add')}</button>
-          )}
+          <div className="p-3 flex items-center gap-3">
+            <div className="flex items-center gap-3 cursor-pointer flex-1 min-w-0" onClick={() => setShowUpsell(true)}>
+              <img src={`${BASE_PATH}/mega-bundle.jpg`} alt="Mega Bundle" className="w-14 h-14 object-cover flex-shrink-0 rounded-xl" style={{ border: `1px solid ${BDR}` }} />
+              <div className="min-w-0">
+                <div className="text-xs font-bold leading-tight" style={{ color: DARK }}>{t('megaBundleTitle')}</div>
+                <div className="text-[10px] mt-0.5" style={{ color: LITE }}>{t('megaBundleTagline')}</div>
+                <div className="text-sm font-black mt-1" style={{ color: OR }}>+{UPSELL_PRICE} TND</div>
+              </div>
+            </div>
+            {upsellAdded ? (
+              <button type="button" onClick={() => setUpsellAdded(false)}
+                className="flex-shrink-0 text-[10px] font-bold px-2.5 py-1.5 rounded-lg border transition"
+                style={{ borderColor: OR, color: OR, background: '#FFF7F2' }}>{t('added')}</button>
+            ) : (
+              <button type="button" onClick={() => setUpsellAdded(true)}
+                className="flex-shrink-0 text-[10px] font-black uppercase px-3 py-1.5 text-white rounded-lg hover:brightness-110 transition"
+                style={{ background: OR }}>{t('add')}</button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Totals */}
       <div className="px-5 pb-4 space-y-2" style={{ borderTop: `2px dashed ${BDR}`, paddingTop: 16 }}>
@@ -458,26 +460,28 @@ function CheckoutSidebar({
       </div>
 
       {/* "Yes, I Want This!" checkbox */}
-      <div className="px-5 pb-4">
-        <button
-          type="button"
-          className="flex items-start gap-3 cursor-pointer group text-left w-full"
-          onClick={() => setUpsellAdded(!upsellAdded)}
-        >
-          <div
-            className="flex-shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all"
-            style={{
-              borderColor: upsellAdded ? OR : BDR,
-              background: upsellAdded ? OR : '#fff',
-            }}
+      {product.show_upsell !== false && (
+        <div className="px-5 pb-4">
+          <button
+            type="button"
+            className="flex items-start gap-3 cursor-pointer group text-left w-full"
+            onClick={() => setUpsellAdded(!upsellAdded)}
           >
-            {upsellAdded && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
-          </div>
-          <span className="text-sm font-semibold leading-tight select-none" style={{ color: upsellAdded ? OR : MID }}>
-            {t('yesWantThis')}
-          </span>
-        </button>
-      </div>
+            <div
+              className="flex-shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all"
+              style={{
+                borderColor: upsellAdded ? OR : BDR,
+                background: upsellAdded ? OR : '#fff',
+              }}
+            >
+              {upsellAdded && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+            </div>
+            <span className="text-sm font-semibold leading-tight select-none" style={{ color: upsellAdded ? OR : MID }}>
+              {t('yesWantThis')}
+            </span>
+          </button>
+        </div>
+      )}
 
       {/* CTA */}
       <div className="px-5 pb-5" style={{ borderTop: `2px dashed ${BDR}`, paddingTop: 16 }}>

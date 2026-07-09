@@ -207,6 +207,7 @@ export default function EditProduct() {
     price: '', original_price: '', ba9chich_product_id: '', hero_image: '',
     title_ar: '', subtitle_ar: '', description_ar: '',
   })
+  const [showUpsellField, setShowUpsellField] = useState(true)
   const [features, setFeatures] = useState<string[]>([])
   const [features_ar, setFeatures_ar] = useState<string[]>([])
   const [faqs, setFaqs] = useState<{ question: string; answer: string }[]>([])
@@ -238,6 +239,7 @@ export default function EditProduct() {
           subtitle_ar: (p as any).subtitle_ar || '',
           description_ar: (p as any).description_ar || '',
         })
+        setShowUpsellField((p as any).show_upsell !== false)
         setFeatures(p.features || [])
         setFeatures_ar((p as any).features_ar || [])
         setFaqs(p.faqs || [])
@@ -297,6 +299,7 @@ export default function EditProduct() {
       description_ar: form.description_ar || null,
       features_ar: features_ar,
       faqs_ar: faqs_ar,
+      show_upsell: showUpsellField,
     }).eq('id', id)
     if (err) { setError(err.message); setSaving(false); return }
     router.push('/admin/products')
@@ -399,6 +402,18 @@ export default function EditProduct() {
             {form.hero_image && (
               <img src={form.hero_image} alt="" className="mt-2 w-full max-h-40 object-cover rounded-xl border border-[#E0DDD8]" />
             )}
+          </div>
+          <div className="flex items-center gap-2 pt-2">
+            <input
+              type="checkbox"
+              id="show_upsell_checkbox"
+              checked={showUpsellField}
+              onChange={e => setShowUpsellField(e.target.checked)}
+              className="w-4 h-4 rounded text-[#E05C00] focus:ring-[#E05C00] border-[#E0DDD8] cursor-pointer"
+            />
+            <label htmlFor="show_upsell_checkbox" className="text-sm font-semibold text-[#111] cursor-pointer select-none">
+              Show Upsell Addon Pack (Special Upgrade Offer)
+            </label>
           </div>
         </Card>
 

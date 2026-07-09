@@ -23,6 +23,7 @@ export interface Product {
   upsell_slugs: string[]
   sections: ProductSection[]
   sections_ar?: ProductSection[]
+  show_upsell?: boolean
   created_at: string
 }
 
