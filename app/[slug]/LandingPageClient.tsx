@@ -303,6 +303,7 @@ function CheckoutSidebar({
   const [showUpsell, setShowUpsell] = useState(false)
   const title = lang === 'ar' && product.title_ar ? product.title_ar : product.title
   const total = product.price + (upsellAdded ? UPSELL_PRICE : 0)
+  const showUpsellPack = product.show_upsell === true || (product.show_upsell !== false && product.slug !== 'youtube-automation')
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -413,7 +414,7 @@ function CheckoutSidebar({
       </div>
 
       {/* ── Upsell Order Bump ── */}
-      {product.show_upsell !== false && (
+      {showUpsellPack && (
         <div className="mx-5 mb-4 rounded-2xl overflow-hidden"
           style={{ border: upsellAdded ? `2px solid ${OR}` : `2px dashed ${BDR}`, background: upsellAdded ? '#FFF7F2' : '#fff' }}>
           <div className="px-4 py-3" style={{ borderBottom: `1px dashed ${BDR}`, background: upsellAdded ? '#FFF0E6' : SAND }}>
@@ -460,7 +461,7 @@ function CheckoutSidebar({
       </div>
 
       {/* "Yes, I Want This!" checkbox */}
-      {product.show_upsell !== false && (
+      {showUpsellPack && (
         <div className="px-5 pb-4">
           <button
             type="button"
